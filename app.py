@@ -14,7 +14,12 @@ DB_PATH = os.path.join(BASE_DIR, "instance", "importnow.db")
 
 WHATSAPP_NUMBER = "919989724320"
 
-app = Flask(__name__, template_folder=".")
+app = Flask(
+    __name__,
+    template_folder=".",
+    static_folder=".",
+    static_url_path=""
+)
 
 @app.context_processor
 def inject_posts():
