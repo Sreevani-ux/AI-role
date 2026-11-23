@@ -7,7 +7,7 @@ from datetime import datetime
 
 from flask import Flask, g, jsonify, render_template, request
 
-from data.posts import POSTS
+from posts import POSTS
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "instance", "importnow.db")
