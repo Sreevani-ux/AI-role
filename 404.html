@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Page not found | ImportNow{% endblock %}
+{% block page %}404{% endblock %}
+
+{% block content %}
+<section class="page-hero" style="min-height:70vh;display:flex;align-items:center">
+  <div class="wrap">
+    <div class="crumbs"><a href="{{ url_for('home') }}">Home</a><span>/</span><span>404</span></div>
+    <h1>This page went <em style="font-style:normal;color:var(--red)">off the map.</em></h1>
+    <p>The page you're looking for doesn't exist or has moved. Let's get you back on the route from China to India.</p>
+    <div class="hero-btns" style="margin-top:28px">
+      <a class="btn btn-primary" href="{{ url_for('home') }}">Back to home <span aria-hidden="true">→</span></a>
+      <a class="btn btn-ghost" href="{{ url_for('blog') }}">Read the blog</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

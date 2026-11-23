@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} | ImportNow{% endblock %}
+{% block meta_description %}{{ post.excerpt }}{% endblock %}
+{% block page %}post{% endblock %}
+
+{% block content %}
+<article class="article">
+  <div class="wrap article-wrap">
+    <div>
+      <div class="crumbs"><a href="{{ url_for('home') }}">Home</a><span>/</span><a href="{{ url_for('blog') }}">Blog</a><span>/</span><span>{{ post.cat }}</span></div>
+      <h1>{{ post.title }}</h1>
+      <div class="post-meta"><span>{{ post.date }}</span><span class="dot"></span><span>{{ post.mins }} min read</span><span class="dot"></span><span>By ImportNow Team</span></div>
+      <div class="cover"><span class="cover-in"><span class="cv-bg {{ post.cv }}"></span><svg class="cv-ic"><use href="#ic-{{ post.icon }}"/></svg><span class="cv-cat">{{ post.cat }}</span><span class="cv-flags"><svg class="flag"><use href="#flag-cn"/></svg>→<svg class="flag"><use href="#flag-in"/></svg></span></span></div>
+      <div class="prose">{{ post.body | safe }}</div>
+      <div class="share">Share:
+        <a href="https://wa.me/?text={{ (post.title + ' ' + (request.url_root[:-1] + url_for('blog_detail', slug=post.slug))) | urlencode }}" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ (request.url_root[:-1] + url_for('blog_detail', slug=post.slug)) | urlencode }}" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <aside class="sidebar">
+      <div class="side-box">
+        <h3>Popular guides</h3>
+        {% for p in popular %}
+        <a class="pop" href="{{ url_for('blog_detail', slug=p.slug) }}">
+          <span class="cover"><span class="cover-in"><span class="cv-bg {{ p.cv }}"></span><svg class="cv-ic"><use href="#ic-{{ p.icon }}"/></svg></span></span>
+          <span><b>{{ p.title.split(':')[0] }}</b><span>{{ p.date }}</span></span>
+        </a>
+        {% endfor %}
+      </div>
+      <div class="side-cta">
+        <h3>Start importing</h3>
+        <p>Tell us what you want to import. You'll get supplier options, landed cost and timelines, free of charge.</p>
+        <a class="btn" href="{{ url_for('home') }}#contact">Get a free quote →</a>
+      </div>
+    </aside>
+  </div>
+</article>
+
+<section class="related">
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow">Keep reading</span><h2 style="font-size:clamp(26px,3.4vw,40px)">Related articles</h2></div>
+    <div class="post-grid" id="related-grid"></div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+window.RELATED={{ related | tojson }};
+document.getElementById('related-grid').innerHTML=window.RELATED.map(window.IN_CARD).join('');
+document.querySelectorAll('.rv:not(.in)').forEach(function(el){el.classList.add('in')});
+</script>
+{% endblock %}
